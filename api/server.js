@@ -7,9 +7,17 @@ import stripePackage from 'stripe';
 import bodyParser from 'body-parser';
 import path from 'path';
 import nodemailer from 'nodemailer';
-
-// Initialize the app
+const express = require('express');
 const app = express();
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://ticke-tree-backend.vercel.app'); // Allow requests from your frontend
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Specify allowed methods
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Specify allowed headers
+    next();
+});
+// Initialize the app
+
 const port = process.env.PORT || 5001;
 const stripe = stripePackage(process.env.STRIPE_SECRET_KEY);
 
