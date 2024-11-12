@@ -193,3 +193,6 @@ app.post('/send-confirmation-email', async (req, res) => {
 
 // Start the server
 export default app;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
