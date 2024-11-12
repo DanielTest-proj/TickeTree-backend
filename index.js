@@ -18,9 +18,6 @@ const stripe = stripePackage(process.env.STRIPE_SECRET_KEY);
 app.get('/home', (req, res) => {
     res.status(200).json('Welcome, your app is working well');
 });
-app.get('/', (req, res) => {
-    res.status(200).json('this meanas the backend is working');
-});
 
 
 // Middleware
