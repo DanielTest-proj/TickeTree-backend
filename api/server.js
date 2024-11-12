@@ -7,26 +7,14 @@ import stripePackage from 'stripe';
 import bodyParser from 'body-parser';
 import path from 'path';
 import nodemailer from 'nodemailer';
-const express = require('express');
-const app = express();
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://ticke-tree-backend.vercel.app'); // Allow requests from your frontend
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Specify allowed methods
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Specify allowed headers
-    next();
-});
 // Initialize the app
-
+const app = express();
 const port = process.env.PORT || 5001;
 const stripe = stripePackage(process.env.STRIPE_SECRET_KEY);
 
 // Middleware
-app.use(cors({
-    origin: 'https://your-frontend-domain.com', // Allow only your frontend domain
-    methods: ['GET', 'POST'],
-    credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.static(path.resolve('dist')));
@@ -47,21 +35,8 @@ app.get('/api/events', async (req, res) => {
 
         res.json(response.data);
     } catch (error) {
-        if (error.response) {
-            console.error('Error response data:', error.response.data);
-            console.error('Error response status:', error.response.status);
-            console.error('Error response headers:', error.response.headers);
-        } else if (error.request) {
-            // The request was made, but no response was received
-            console.error('Error request:', error.request);
-        } else {
-            // Something happened in setting up the request
-            console.error('Error message:', error.message);
-        }
-        console.error('Error config:', error.config);
         console.error('Error fetching events:', error.message);
         res.status(500).send('Internal Server Error');
-        throw error
     }
 });
 
