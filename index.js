@@ -81,7 +81,7 @@ app.post('/create-checkout-session', async (req, res) => {
             line_items: lineItems,
             mode: 'payment',
             success_url: `https://ticke-tree-frontend.vercel.app/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: 'https://ticke-tree-backend.vercel.app/error',
+            cancel_url: 'https://ticke-tree-frontend.vercel.app/error',
             allow_promotion_codes: true,
         });
 
